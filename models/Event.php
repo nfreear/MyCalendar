@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use KurtJensen\MyCalendar\Models\Settings;
 use Model;
+use Str;
 use RainLab\User\Models\User as UserModel;
 use System\Classes\PluginManager;
 use \Recurr\Rule;
@@ -153,6 +154,8 @@ class Event extends Model {
 	}
 
 	public function beforeSave() {
+		$this->name = Str::cleanHtml($this->name);
+		$this->text = Str::cleanHtml($this->text);
 		unset(
 			$this->attributes['human_time'],
 			$this->attributes['owner_name'],
